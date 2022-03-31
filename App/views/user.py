@@ -12,11 +12,9 @@ user_views = Blueprint('user_views', __name__, template_folder='../templates')
 
 #create a user
 @user_views.route('/register', methods=['POST'])
-def create_user():
-    data = request.get_json()
-    
+def create_user_page():
+    data = request.get_json() 
     newuser = create_user(data['username'], data['email'], data['password'])
-
     return (jsonify({"message":"created"}), 201) if newuser else (jsonify({"message":"could not create"}), 500)
 
 @user_views.route('/users', methods=['GET'])
