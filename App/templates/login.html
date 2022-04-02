@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block page %}Login{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+<html lang="en">
+    <head>
+     
+        <style media="screen">
+    
+    form *{
+        font-family: 'Poppins',sans-serif;
+        color: #232121;
+        letter-spacing: 0.5px;
+        outline: none;
+        border: none;
+    }
+    form h3{
+        font-size: 32px;
+        font-weight: 500;
+        line-height: 42px;
+        text-align: center;
+    }
+    
+    label{
+        display: block;
+        margin-top: 30px;
+        font-size: 16px;
+        font-weight: 500;
+    }
+    input{
+        display: block;
+        height: 50px;
+        width: 100%;
+        background-color: rgba(25, 20, 20, 0.07);
+        border-radius: 3px;
+        padding: 0 10px;
+        margin-top: 8px;
+        font-size: 14px;
+        font-weight: 300;
+    }
+    ::placeholder{
+        color: #0c0c0c;
+    }
+    button{
+        margin-top: 50px;
+        width: 100%;
+        background-color: #ffffff;
+        color: #080710;
+        padding: 15px 0;
+        font-size: 18px;
+        font-weight: 600;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+        </style>
+    </head>
+    <body>
+        <form method="POST"  action="/login">
+            <label for="email">Email</label>
+            <input type="text" placeholder="Email" name="email" class="validate">
+           
+    
+            <label for="password">Password</label>
+            <input type="password" placeholder="Password" name="password" class="validate">
+    
+            <button>Log In</button>
+        </form>
+    </body>
+    </html>
+{% endblock %}

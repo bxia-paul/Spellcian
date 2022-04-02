@@ -1,24 +1,26 @@
 from flask import Blueprint, flash, render_template, request, jsonify
 from werkzeug.utils import redirect
+from App.models import User
+from flask_login import LoginManager, current_user, login_user, login_required
+
+from App.controllers import (
+    authenticate
+)
 
 auth_views = Blueprint("auth", __name__, template_folder='../templates')
 
-@auth_views.route("/login", methods=["GET"])
+@auth_views.route("/login", methods=['GET'])
 def login_page():
     return render_template("login.html")
 
- '''
-@auth_views.route('/auth', methods=['POST'])
-def login_action():
-    fname = request.form['first_name']
-    lname = request.form['last_name']
-    email = request.form['email']
-    password = request.form['password']
-    res = create_user(email, password, fname, lname)
-    if (res):
-        flash('User Created')
-        return redirect('/')
+@auth_views.route('/login', methods=['POST'])
+def login():
+    data = request.form
+    user = User.query.filter_by(email = data['email']).first()
+    if user and user.check_password(data['password']): # check credentials
+      flash('Logged in successfully.') # send message to next page
+      login_user(user) # login the user
+      return redirect('/app') # redirect to main page if login successful
     else:
-        flash("Email Taken")
-        return redirect('/signup')  
-   '''     
+      flash('Invalid username or password') # send message to next page
+    return redirect('/')    

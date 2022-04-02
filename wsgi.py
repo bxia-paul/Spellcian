@@ -39,6 +39,7 @@ def create_user_command(username, email, password):
 @user_cli.command("list", help="Lists users in the database")
 @click.argument("format", default="string")
 def list_user_command(format):
+    
     if format == 'string':
         print(get_all_users())
     else:
