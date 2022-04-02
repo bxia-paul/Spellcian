@@ -1,6 +1,7 @@
-from flask import Blueprint, flash, render_template, request, jsonify
+from flask import Blueprint, flash, render_template, request, jsonify, redirect
 from werkzeug.utils import redirect
 from App.models import User
+
 from flask_login import LoginManager, current_user, login_user, login_required
 
 from App.controllers import (
@@ -20,7 +21,8 @@ def login():
     if user and user.check_password(data['password']): # check credentials
       flash('Logged in successfully.') # send message to next page
       login_user(user) # login the user
-      return redirect('/app') # redirect to main page if login successful
+      return render_template("index.html") # redirect to main page if login successful
     else:
       flash('Invalid username or password') # send message to next page
-    return redirect('/')    
+    return render_template("index.html") 
+      
