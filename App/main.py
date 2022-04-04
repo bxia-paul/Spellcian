@@ -7,7 +7,7 @@ from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 from datetime import timedelta
 
-
+from App.models import User
 from App.database import create_db, get_migrate
 
 from App.controllers import (
@@ -30,6 +30,15 @@ def add_views(app, views):
 
 
 def loadConfig(app, config):
+
+    ''' Begin Flask Login Functions '''
+    login_manager = LoginManager()
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(user_id)
+    ''' End Flask Login Functions '''
+    login_manager.init_app(app) # uncomment if using flask login
+
     app.config['ENV'] = os.environ.get('ENV', 'DEVELOPMENT')
     if app.config['ENV'] == "DEVELOPMENT":
         app.config.from_object('App.config')
