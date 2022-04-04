@@ -17,13 +17,20 @@ from App.controllers import (
 from App.views import (
     user_views,
     api_views,
+    auth_views,
 )
 
 views = [
     user_views,
     api_views,
+    auth_views,
 ]
 
+login_manager = LoginManager()
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+    
 def add_views(app, views):
     for view in views:
         app.register_blueprint(view)
@@ -64,6 +71,7 @@ def create_app(config={}):
     add_views(app, views)
     create_db(app)
     setup_jwt(app)
+    login_manager.init_app(app)
     app.app_context().push()
     return app
 

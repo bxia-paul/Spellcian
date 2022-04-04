@@ -60,6 +60,12 @@ def get_user_page():
     users = get_all_users()
     return render_template('users.html', users=users)
 
+@user_views.route('/allusers', methods=['GET'])
+def get_todos():
+  users = User.query.all()
+  users_list = [ user.toDict() for user in users ] # convert user objects to list of dictionaries
+  return jsonify({ "num_users": len(users_list), "users": users_list })
+
 @user_views.route('/api/users')
 def client_app():
     users = get_all_users_json()
