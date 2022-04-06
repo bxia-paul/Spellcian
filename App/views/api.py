@@ -13,7 +13,7 @@ easy_words = ["dog"]
 medium_words = ["israel"]
 hard_words = ["perspicacity"]
 
-bob = User("bobby", "bob@gmail.com", "bobpass")
+bob = User("bobby", "bob@gmail.com", "bobpass", 3, 0, 0)
 #score = 0
 
 @api_views.route('/home', methods=['GET'])
@@ -56,7 +56,7 @@ def play_easy():
             if bob.highscore < bob.score:
                 bob.highscore = bob.score
             bob.score = 0
-            return redirect(url_for("api_views.lost_easy"))
+            return redirect("https://8080-bxiapaul-spellcian-ojctgj1lnv3.ws-us38.gitpod.io/lost_easy")
     return render_template("game.html", message = message, gametype=gametype, score = bob.score, yhighscore = bob.highscore, word = bee_word)
 
 @api_views.route('/medium', methods = ['GET', 'POST'])

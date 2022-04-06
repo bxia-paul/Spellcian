@@ -8,18 +8,18 @@ class User(UserMixin, db.Model):
     username =  db.Column(db.String(80), nullable=False, unique=True)
     email =  db.Column(db.String(120), nullable=False, unique=True)
     password = db.Column(db.String(120), nullable=False)
-    lives =  db.Column(db.Integer)
-    highscore =  db.Column(db.Integer)
-    score = db.Column(db.Integer)
+    lives = 3
+    highscore = 0
+    score = 0
     
 
-    def __init__(self, username, email, password):
+    def __init__(self, username, email, password, lives, highscore, score):
         self.username = username
         self.email = email
         self.set_password(password)
-        self.lives = 3
-        self.highscore = 0
-        self.score = 0
+        self.lives = lives
+        self.highscore = highscore
+        self.score = score
 
     def toDict(self):
         return{

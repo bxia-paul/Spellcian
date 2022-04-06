@@ -7,9 +7,9 @@ from flask import flash
 def get_all_users():
     return User.query.all()
 
-def create_user(uname, mail, pword):
+def create_user(uname, mail, pword, lives, highscore, score):
     try:
-        newuser = User(username=uname, email=mail, password=pword)
+        newuser = User(username=uname, email=mail, password=pword, lives=3, highscore=0, score=0)
         db.session.add(newuser)
         db.session.commit()
         flash('User created successfully.') # send message to next page
