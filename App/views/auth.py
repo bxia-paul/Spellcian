@@ -21,8 +21,8 @@ def login():
     if user and user.check_password(data['password']): # check credentials
       flash('Logged in successfully.') # send message to next page
       login_user(user) # login the user
-      return render_template("index.html") # redirect to main page if login successful
+      return render_template("newgame.html") # redirect to main page if login successful
     else:
       flash('Invalid username or password') # send message to next page
-    return render_template("index.html") 
+    return render_template("login.html") 
       

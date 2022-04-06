@@ -6,12 +6,13 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 from datetime import timedelta
-from App.models import User
+from App.models import User, Word
 
 from App.database import create_db, get_migrate
 
 from App.controllers import (
-    setup_jwt
+    setup_jwt,
+    loadWords,
 )
 
 from App.views import (
@@ -64,6 +65,7 @@ def create_app(config={}):
     setup_jwt(app)
     login_manager.init_app(app)
     app.app_context().push()
+    loadWords()
     return app
 
 app = create_app()
