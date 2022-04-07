@@ -21,6 +21,6 @@ class Word(db.Model):
     
     #To String method
     def __repr__(self):
-      return '<Word {}>'.format(self.wordname)
+      return self.wordname
 
 

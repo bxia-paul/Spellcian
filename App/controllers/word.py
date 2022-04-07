@@ -1,6 +1,7 @@
 from App.models import Word
 from App.database import db
 import csv
+import random
 
 def loadWords():
    word_file = csv.DictReader(open("/workspace/Spellcian/App/spellican_word_list.csv", encoding='utf-8-sig'))
@@ -12,7 +13,8 @@ def loadWords():
       ))
     db.session.commit()    
 
-def getWordList():
-    wList = Word.query.all()
+def getWordList(difficulty):
+    wList = random.choice(Word.query.filter_by(difficulty=difficulty).all())
+    return wList.__repr__()
     
 

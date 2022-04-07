@@ -19,12 +19,14 @@ from App.views import (
     user_views,
     api_views,
     auth_views,
+    game_views
 )
 
 views = [
     user_views,
     api_views,
     auth_views,
+    game_views
 ]
 
 login_manager = LoginManager()
