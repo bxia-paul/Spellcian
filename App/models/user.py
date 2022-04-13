@@ -9,6 +9,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(120), nullable=False)
     highscore =  db.Column(db.Integer, nullable=False)
     lives =  db.Column(db.Integer, nullable=False)
+    level = db.Column(db.Integer, nullable=False)
 
     def __init__(self, username, email, password):
         self.username = username
@@ -16,6 +17,7 @@ class User(db.Model, UserMixin):
         self.set_password(password)
         self.highscore = 0
         self.lives = 3
+        self.level = 0
 
     def toDict(self):
         return{
@@ -23,7 +25,8 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'username': self.username,
             'highscore': self.highscore,
-            'lives': self.lives    
+            'lives': self.lives,
+            'level': self.level
         }
 
     def set_password(self, password):

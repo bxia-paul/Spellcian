@@ -2,11 +2,11 @@ from flask import Blueprint, flash, render_template, request, jsonify, redirect,
 from werkzeug.utils import redirect
 from App.models import User
 
-from flask_login import LoginManager, current_user, login_user, login_required
+from flask_login import LoginManager, current_user, login_user, login_required, logout_user
 
 from App.controllers import (
     authenticate,
-    create_user
+    create_user, 
 )
 
 auth_views = Blueprint("auth", __name__, template_folder='../templates')
@@ -37,6 +37,14 @@ def signupAction():
     data = request.form
     user = create_user(data['username'], data['email'], data['password'])
     if user != None:
-        return redirect(url_for('user_views.client_app'))
+        flash('User could not be created!')
+        return redirect(url_for('user_views.signup'))
     return render_template('login.html')    
       
+
+@auth_views.route('/logout', methods=['GET'])
+@login_required
+def logout():
+  logout_user()
+  flash('Logged Out!')
+  return redirect(url_for('auth.login_page'))

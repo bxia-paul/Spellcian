@@ -7,35 +7,65 @@
 {% block content %}
 {% if current_user.is_authenticated %}
 
-<h3> Hi {{ current_user.username }}! </h3>
+<div class="row">
+  <div class="col s6">
+    <h3> Player: {{ current_user.username }}! </h3
+      ></div>
+  <div class="col s6">
+    <h3> Lives: 
+      {% if current_user.lives == 3 %}
+        <i class="medium material-icons">favorite_border</i>
+        <i class="medium material-icons">favorite_border</i>
+        <i class="medium material-icons">favorite_border</i>
+      {% endif %}
+      
+      {% if current_user.lives == 2 %}
+        <i class="medium material-icons">favorite_border</i>
+        <i class="medium material-icons">favorite_border</i>
+      {% endif %}
+      
+      {% if current_user.lives == 1 %}
+       <i class="medium material-icons">favorite_border</i>
+      {% endif %}
+      </h3>
+  </div>
+</div>
 
-  <h4> Difficulty: {{result}} </h4>
+  <div class="row">
+
+      <audio id="myAudio" autoplay >
+        <source src="static/speech.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag.
+      </audio>
+      <button onclick="playAudio()" type="button">Play Word</button>
+  </div>
+
+  <h4> Difficulty: {{current_user.level}} </h4>
   <br>
   <h4> Word: {{word}} </h4>
-
+  <h4> {{status}} </h4>
+  <h4> Score: {{score}} </h4>
   <br>
 
-        <audio id="myAudio">
-          <source src="static/speech.mp3" type="audio/mpeg">
-          Your browser does not support the audio tag.
-        </audio>
-        <button onclick="playAudio()" type="button">Play Audio</button>
-
     <div class="row">
-      <form class="col s12">
+      <form class="col s12" action="/next" method="post">
         <div class="row">
           <div class="input-field col s12">
-            <textarea id="textarea1" class="materialize-textarea"></textarea>
+            <textarea id="textarea1" class="materialize-textarea" name="guess"></textarea>
             <label for="textarea1">Textarea</label>
           </div>
         </div>
 
-        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-          <i class="material-icons right">send</i>
-        </button>
+       
+        <div class="row">
+          <button class="btn waves-effect waves-light" type="submit" name="action">NEXT
+            <i class="material-icons right">send</i>
+          </button>
+          </div>
+        </div>
       </form>
 
-
+  
       <script type="text/javascript">
         var x = document.getElementById("myAudio");
 
@@ -43,6 +73,7 @@
           x.play();
         } 
       </script>
+      
 
     </div>
   {% endif %}

@@ -1,12 +1,16 @@
-from flask import Blueprint, render_template, jsonify, request, send_from_directory
+from flask import Blueprint, render_template, jsonify, request, send_from_directory, url_for, redirect
 from flask_jwt import jwt_required
+from flask_login import login_required
 
 from App.models import User
 from App.controllers import (
     create_user, 
     get_all_users,
     get_all_users_json,
+    set_level,
+    initGame
 )
+from App.views.game import(game_page)
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
 
@@ -22,6 +26,7 @@ def get_user_page():
     users = get_all_users()
     return render_template('users.html', users=users)
 
+#returns all users
 @user_views.route('/allusers', methods=['GET'])
 def get_todos():
   users = User.query.all()
@@ -30,8 +35,23 @@ def get_todos():
 
 @user_views.route('/api/users')
 def client_app():
-    users = get_all_users_json()
+    users = get_all_users_json() 
     return jsonify(users)
+
+
+@user_views.route('/level', methods=['GET'])
+@login_required
+def user_difficulty():
+    return render_template("newgame.html")
+
+#edits users difficulty    
+@user_views.route('/level', methods=['POST'])
+@login_required
+def set_user_difficulty():
+    result = request.form.get('gameChoice')
+    set = set_level(result)
+    initGame()
+    return redirect(url_for('game_views.game_page'))
 
 @user_views.route('/api/lol')
 def lol():

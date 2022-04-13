@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block title %}Spellcian{% endblock %}
+{% block page %}Spellcian{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+{% if current_user.is_authenticated %}
+<div class="row">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Word</th>
+                <th>Correct</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in game %}
+            <tr>
+                <td>{{x.id}}</td>
+                <td>{{x.word}}</td>
+                <td>
+                    {% if x.correct %}
+                    CORRECT
+                    {% else %}
+                    INCORRECT
+                    {% endif %}
+                </td>
+                <td>
+                    {{x.score}}
+                </td>
+            </tr>
+            {% endfor %}
+        <tbody>
+    </table>
+</div>
+
+<div>
+    Total Score: {{total}}
+</div>
+
+<div>
+    <div>
+        <a class="waves-effect waves-light btn-small" href="/logout">LOGOUT</a>
+        <a class="waves-effect waves-light btn-small" href="/level">PLAY AGAIN</a>
+    </div>
+</div>
+
+
+{% endif %}
+{% endblock %}
