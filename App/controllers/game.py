@@ -24,7 +24,7 @@ def deleteLast():
 def generateWord(word):
     language = 'en'
     output = gTTS(text=word, lang=language, slow=False)
-    output.save("App\static\speech.mp3")
+    output.save("App/static/speech.mp3")
 
 def addWord(word):
     try:
