@@ -8,7 +8,7 @@ from sqlalchemy import delete
 def initGame():
     try:
         reset_lives()
-        db.session.query(Game).delete()
+        db.session.delete(Game)
         db.session.commit()
     except Exception as e:
         db.session.rollback()
