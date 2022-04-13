@@ -38,7 +38,7 @@ def signupAction():
     user = create_user(data['username'], data['email'], data['password'])
     if user != None:
         return render_template('login.html')
-    ekse:
+    else:
         flash('User could not be created!')
         return redirect(url_for('user_views.signup'))
         
