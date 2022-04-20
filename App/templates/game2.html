@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head lang="en">
+    <title>Spellican</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='/game.css')}}">
+    <!-- Materialize css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="row">
+        <nav class="col s12 nav-bar">
+            <!-- <div class="mycontainer"> -->
+                <div class=" navcontainer">
+                    <div class="logo-div">
+                        <img src="{{ url_for('static', filename='/pelican-logo.svg') }}" alt="Spellican logo" class="logo">
+                        <h1 class="title text">Spellican</h1>
+                    </div>
+                    <div class="profile-div">
+                        <p class="profile">{{ current_user.username }}</p>
+                    </div>
+                </div>
+            <!-- </div> -->
+        </nav>
+    </div>
+
+    <div class="mycontainer">
+        <div class="row">
+            <div class="difficulty col s3 center-align">
+                <h3 class="difficulty-text">Difficulty: Hard
+                    <i class="material-icons difficulty-star">star</i>
+                    <i class="material-icons difficulty-star">star</i>
+                    <i class="material-icons difficulty-star">star</i>
+                </h3>
+            </div>
+    
+            <div class="game col s6 center-align">
+                <p class="speak-text">Click to say word.</p>
+                <a href="#"><i class="material-icons volume-button">volume_up</i></a>
+                <form class="word-input">
+                    <div class="input-field col s12 center-align" >
+                        <input id="last_name" type="text" class="validate center-align">
+                        <label for="last_name"></label>
+                    </div>
+                    <button class="btn waves-effect waves-light submit-button" type="submit" name="action">Submit
+                        <i class="material-icons right">send</i>
+                    </button>
+                </form>
+            </div>
+    
+            <div class="score col s3 center-align">
+                <p class="score-text">High Score:</p>
+                <p class="score-text">Current Score:</p>
+                <p class="score-text">Lives: 
+                    <i class="material-icons lives-icon">favorite</i>
+                    <i class="material-icons lives-icon">favorite_border</i>
+                </p>
+                <!-- <p class="score-text">Words:</p> -->
+    
+            </div>
+        </div>
+    </div>
+
+</body>

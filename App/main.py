@@ -38,13 +38,13 @@ def add_views(app, views):
 
 def loadConfig(app, config):
 
-    ''' Begin Flask Login Functions '''
-    login_manager = LoginManager()
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(user_id)
-    ''' End Flask Login Functions '''
-    login_manager.init_app(app) # uncomment if using flask login
+    # ''' Begin Flask Login Functions '''
+    # login_manager = LoginManager()
+    # @login_manager.user_loader
+    # def load_user(user_id):
+    #     return User.query.get(user_id)
+    # ''' End Flask Login Functions '''
+    # login_manager.init_app(app) # uncomment if using flask login
 
     app.config['ENV'] = os.environ.get('ENV', 'DEVELOPMENT')
     if app.config['ENV'] == "DEVELOPMENT":

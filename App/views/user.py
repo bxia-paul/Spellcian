@@ -25,8 +25,8 @@ def signupAction():
     data = request.form
     user = create_user(data['username'], data['email'], data['password'], lives=3, highscore=0, score=0)
     if user != None:
-        return redirect(url_for('user_views.client_app'))
-    return render_template('login.html')
+        return redirect(url_for('user_views.homepage'))
+    return render_template('signup.html')
 
 @user_views.route('/login', methods=['GET'])
 def login():
@@ -37,7 +37,7 @@ def loginAction():
     data = request.form
     user = log_user(data['username'], data['password'])
     if user != None:
-        return redirect(url_for('user_views.client_app'))
+        return redirect(url_for('user_views.homepage'))
     return render_template('home.html') #Redirects to home page
 
 @user_views.route('/logout', methods=['GET'])
@@ -45,6 +45,11 @@ def logout():
     logout_user()
     return redirect(url_for('user_views.login')) 
 
+
+@user_views.route('/homepage', methods=['GET'])
+@login_required
+def homepage():
+    return render_template('main-page.html')
 
 #create a user
 # @user_views.route('/register', methods=['POST'])

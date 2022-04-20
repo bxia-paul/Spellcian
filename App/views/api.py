@@ -1207,3 +1207,9 @@ def play_hard():
             bob.score = 0
             return render_template("lost_hard.html")
     return render_template("game.html", message = message, gametype=gametype, score = bob.score, yhighscore = bob.highscore, word = hard_words[counter])
+
+
+
+@api_views.route('/game_test', methods = ['GET', 'POST'])
+def game_test():
+    return render_template('game2.html')
