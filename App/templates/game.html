@@ -6,6 +6,38 @@
     </title>
 </head> 
     <body>
+        {% block content %}
+        <h1 class="title">
+          Text to Speech
+        </h1>
+        
+        
+        
+        <form>
+          <div>
+              <div >
+                    <div class="input-field">
+                        <input type ="hidden" input value={{word}} id="exampleFormControlTextarea4" type="text" class="validate">
+                        <label class="active" for="exampleFormControlTextarea4">Word</label>
+                    </div>
+              </div>
+          </div>
+        </form>
+        <br>
+        <div class="row">
+          <div class="col">
+              <!-- <h3 class="one">Text</h3> -->
+              <button class="btn btn-dark  " id='play123'>Play
+                  </button>
+              </a>
+          </div>
+        </div>
+        
+        </div>
+        <script  type="text/javascript" src="{{url_for('static',filename='js/script.js')}}">
+        </script>
+        
+        {% endblock %}
         <h1>
             {{gametype}}
         </h1>
