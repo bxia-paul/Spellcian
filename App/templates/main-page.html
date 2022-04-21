@@ -25,7 +25,7 @@
     <div class="mycontainer">
         <h3 class="choose-text">Choose a difficulty</h3>
         <div class="row">
-            <a href="/game_test">
+            <a href="/easy">
                 <div class="col s12 m6 l4">
                     <div class="card-panel hoverable center-align easy">
                         <h1 class="difficulty">Easy</h1>
@@ -38,7 +38,7 @@
                 </div>
             </a>
 
-            <a href="#">
+            <a href="/medium">
                 <div class="col s12 m6 l4">
                     <div class="card-panel hoverable center-align medium">
                         <h1 class="difficulty">Medium</h1>
@@ -51,7 +51,7 @@
                 </div>
             </a>
 
-            <a href="#">
+            <a href="/hard">
                 <div class="col s12 m6 l4">
                     <div class="card-panel hoverable center-align hard">
                         <h1 class="difficulty">Hard</h1>
@@ -66,7 +66,7 @@
         </div>
 
         <div class="highscore center-align">
-            <h3 class="highscore-text">High Score:</h3>
+            <h3 class="highscore-text">High Score: {{current_user.highscore}}</h3>
         </div>
     </div>
 </body>

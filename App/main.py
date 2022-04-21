@@ -6,57 +6,57 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 from datetime import timedelta
-
 from App.models import User
+
 from App.database import create_db, get_migrate
 
 from App.controllers import (
-    setup_jwt
+    setup_jwt,
+    loadWords
 )
 
 from App.views import (
     user_views,
     api_views,
-    auth_views,
+    game_views,
+    auth_views
 )
 
 views = [
     user_views,
     api_views,
-    auth_views,
+    game_views,
+    auth_views
 ]
 
 login_manager = LoginManager()
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
-    
+
+
 def add_views(app, views):
     for view in views:
         app.register_blueprint(view)
 
 
 def loadConfig(app, config):
-
-    # ''' Begin Flask Login Functions '''
-    # login_manager = LoginManager()
-    # @login_manager.user_loader
-    # def load_user(user_id):
-    #     return User.query.get(user_id)
-    # ''' End Flask Login Functions '''
-    # login_manager.init_app(app) # uncomment if using flask login
-
     app.config['ENV'] = os.environ.get('ENV', 'DEVELOPMENT')
     if app.config['ENV'] == "DEVELOPMENT":
         app.config.from_object('App.config')
     else:
-        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+            'SQLALCHEMY_DATABASE_URI')
         app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-        app.config['JWT_EXPIRATION_DELTA'] =  timedelta(days=int(os.environ.get('JWT_EXPIRATION_DELTA')))
+        app.config['JWT_EXPIRATION_DELTA'] = timedelta(
+            days=int(os.environ.get('JWT_EXPIRATION_DELTA')))
         app.config['DEBUG'] = os.environ.get('ENV').upper() != 'PRODUCTION'
         app.config['ENV'] = os.environ.get('ENV')
     for key, value in config.items():
         app.config[key] = config[key]
+
 
 def create_app(config={}):
     app = Flask(__name__, static_url_path='/static')
@@ -73,7 +73,9 @@ def create_app(config={}):
     setup_jwt(app)
     login_manager.init_app(app)
     app.app_context().push()
+    loadWords()
     return app
+
 
 app = create_app()
 migrate = get_migrate(app)

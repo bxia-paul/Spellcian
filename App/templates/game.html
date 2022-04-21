@@ -4,49 +4,77 @@
     <meta charset="utf-8"/>
     <title>
     </title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> 
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head> 
-    <body>
-        {% block content %}
-        <h1 class="title">
-          Text to Speech
-        </h1>
-        
-        
-        
-        <form>
-          <div>
-              <div >
-                    <div class="input-field">
-                        <input type ="hidden" input value={{word}} id="exampleFormControlTextarea4" type="text" class="validate">
-                        <label class="active" for="exampleFormControlTextarea4">Word</label>
-                    </div>
-              </div>
-          </div>
-        </form>
-        <br>
-        <div class="row">
-          <div class="col">
-              <!-- <h3 class="one">Text</h3> -->
-              <button class="btn btn-dark  " id='play123'>Play
-                  </button>
-              </a>
-          </div>
+
+<body>
+
+    {% if current_user.is_authenticated %}
+    
+    <div class="row">
+        <div class="col s6">
+            <h3> Player: {{ current_user.username }}! </h3>
         </div>
-        
+        <div class="col s6">
+            <h3> Lives:
+                {% if current_user.lives == 3 %}
+                <i class="medium material-icons">favorite_border</i>
+                <i class="medium material-icons">favorite_border</i>
+                <i class="medium material-icons">favorite_border</i>
+                {% endif %}
+    
+                {% if current_user.lives == 2 %}
+                <i class="medium material-icons">favorite_border</i>
+                <i class="medium material-icons">favorite_border</i>
+                {% endif %}
+    
+                {% if current_user.lives == 1 %}
+                <i class="medium material-icons">favorite_border</i>
+                {% endif %}
+            </h3>
         </div>
-        <script  type="text/javascript" src="{{url_for('static',filename='js/script.js')}}">
-        </script>
+    </div>
         
-        {% endblock %}
+<form>
+  <div>
+      <div>
+          <div class="input-field">
+              <input type ="hidden" input value="{{word}}" id="exampleFormControlTextarea4" type="text" class="validate">
+              <label class="active" for="exampleFormControlTextarea4">Word</label>
+          </div>
+      </div>
+  </div>
+</form>
+<br>
+<div class="row">
+  <div class="col">
+      <!-- <h3 class="one">Text</h3> -->
+      <button class="btn waves-effect waves-light" onclick="textToVoice()">Play
+        <i class="material-icons right">send</i>
+      </button>
+      </a>
+  </div>
+</div>
+
         <h1>
             {{gametype}}
         </h1>
-        <h2>
-            Word: {{word}}
-        </h2>
+        
+        <textarea hidden id="textToRead">{{word}}</textarea>
+       
         <form method='POST'>
-            <input name="spelling"/>
-            <input type="submit"/>
+            <textarea class="materialize-textarea" name="spelling"></textarea>
+            <textarea hidden name="word">{{word}}</textarea>
+        <button class="btn waves-effect waves-light" method='POST' type="submit" name="action">NEXT
+            <i class="material-icons right">send</i>
+        </button>
+
         </form>
         <p>
             {{message}}
@@ -55,7 +83,28 @@
             Score: {{score}}
         </p>
         <p>
-            Your Highscore: {{yhighscore}}
+            Your Highscore: {{current_user.highscore}}
         </p>
-    </body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        </body>
+        {% endif %}
+        <script type="text/javascript">
+            function textToVoice() {
+                var msg = new SpeechSynthesisUtterance();
+                var voices = window.speechSynthesis.getVoices();
+                var text = document.getElementById("textToRead").value;
+                var lan = 'en-EN'
+
+                msg.voice = voices[1]; // Note: some voices don't support altering params
+                msg.voiceURI = 'native';
+                msg.volume = 1; // 0 to 1
+                msg.rate = 1; // 0.1 to 10
+                msg.pitch = 1; //0 to 2
+                msg.text = text;
+                
+                msg.lang = lan;
+                speechSynthesis.speak(msg);
+            }
+        </script>
+</div>
 </html>

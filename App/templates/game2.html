@@ -29,20 +29,34 @@
     <div class="mycontainer">
         <div class="row">
             <div class="difficulty col s3 center-align">
-                <h3 class="difficulty-text">Difficulty: Hard
-                    <i class="material-icons difficulty-star">star</i>
-                    <i class="material-icons difficulty-star">star</i>
-                    <i class="material-icons difficulty-star">star</i>
+                <h3 class="difficulty-text">Difficulty: {{gametype}}
+                    {% if gametype == "Easy" %}
+                        <i class="material-icons difficulty-star">star</i>
+                    {% endif %}
+
+                    {% if gametype == "Medium" %}
+                        <i class="material-icons difficulty-star">star</i>
+                        <i class="material-icons difficulty-star">star</i>
+                    {% endif %}
+
+                    {% if gametype == "Hard" %}
+                        <i class="material-icons difficulty-star">star</i>
+                        <i class="material-icons difficulty-star">star</i>
+                        <i class="material-icons difficulty-star">star</i>
+                    {% endif %}
+    
                 </h3>
             </div>
     
             <div class="game col s6 center-align">
+                <textarea hidden id="textToRead">{{word}}</textarea>
                 <p class="speak-text">Click to say word.</p>
-                <a href="#"><i class="material-icons volume-button">volume_up</i></a>
-                <form class="word-input">
+                <a href="#" onclick="textToVoice()" ><i class="material-icons volume-button">volume_up</i></a>
+                
+                <form class="word-input" method="POST">
                     <div class="input-field col s12 center-align" >
-                        <input id="last_name" type="text" class="validate center-align">
-                        <label for="last_name"></label>
+                        <textarea hidden name="word">{{word}}</textarea>
+                        <textarea name="spelling" type="text" class="validate center-align"></textarea>
                     </div>
                     <button class="btn waves-effect waves-light submit-button" type="submit" name="action">Submit
                         <i class="material-icons right">send</i>
@@ -51,16 +65,52 @@
             </div>
     
             <div class="score col s3 center-align">
-                <p class="score-text">High Score:</p>
-                <p class="score-text">Current Score:</p>
-                <p class="score-text">Lives: 
+                <p class="score-text">High Score: {{current_user.highscore}}</p>
+                <p class="score-text">Current Score: {{score}}</p>
+                <p class="score-text">Lives:
+                
+                {% if current_user.lives == 3 %}
+                    <i class="material-icons lives-icon">favorite</i>
+                    <i class="material-icons lives-icon">favorite</i>
+                    <i class="material-icons lives-icon">favorite</i>
+                {% endif %}
+    
+                {% if current_user.lives == 2 %}
+                    <i class="material-icons lives-icon">favorite</i>
                     <i class="material-icons lives-icon">favorite</i>
                     <i class="material-icons lives-icon">favorite_border</i>
+                {% endif %}
+    
+                {% if current_user.lives == 1 %}
+                    <i class="material-icons lives-icon">favorite</i>
+                    <i class="material-icons lives-icon">favorite_border</i>
+                    <i class="material-icons lives-icon">favorite_border</i>
+                {% endif %} 
+                    
                 </p>
                 <!-- <p class="score-text">Words:</p> -->
     
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        function textToVoice() {
+            var msg = new SpeechSynthesisUtterance();
+            var voices = window.speechSynthesis.getVoices();
+            var text = document.getElementById("textToRead").value;
+            var lan = 'en-EN'
+
+            msg.voice = voices[1]; // Note: some voices don't support altering params
+            msg.voiceURI = 'native';
+            msg.volume = 1; // 0 to 1
+            msg.rate = 0.5; // 0.1 to 10
+            msg.pitch = 1; //0 to 2
+            msg.text = text;
+            
+            msg.lang = lan;
+            speechSynthesis.speak(msg);
+        }
+    </script>
 
 </body>
