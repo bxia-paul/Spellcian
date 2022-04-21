@@ -14,6 +14,7 @@ from App.controllers import(
 
 game_views = Blueprint('game_views', __name__, template_folder='../templates')
 
+score = 0
 
 @game_views.route('/', methods=['GET'])
 def home():
