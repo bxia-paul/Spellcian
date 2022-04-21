@@ -52,7 +52,6 @@ def signupAction():
         flash('User could not be created!')
         return redirect(url_for('user_views.signup'))
         
-      
 
 @auth_views.route('/logout', methods=['GET'])
 @login_required
