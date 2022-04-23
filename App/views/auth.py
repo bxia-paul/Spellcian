@@ -47,7 +47,8 @@ def signupAction():
     data = request.form
     user = create_user(data['username'], data['email'], data['password'])
     if user != None:
-        return render_template('login.html')
+        login_user(user) # login the user
+        return render_template('main-page.html')
     else:
         flash('User could not be created!')
         return render_template('signup.html')

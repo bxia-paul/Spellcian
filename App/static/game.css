@@ -63,6 +63,10 @@
     cursor: pointer;
 }
 
+#toast-flash{
+    display: none;
+}
+
 .difficulty{
     border: 1px solid rgb(109, 201, 201);
     border-radius: 15px;
@@ -95,6 +99,11 @@
 
 .volume-button:hover{
     font-size: 40px !important;
+}
+
+.spelling-input{
+    border: 1px solid rgb(109, 201, 201) !important;
+    border-radius: 15px;
 }
 
 .submit-button{

@@ -89,10 +89,12 @@ def play_easy():
         print(user_spelling)
         print(word_given)
         if word_given == user_spelling:
-            message = "Correct"
+            # message = "Correct"
+            flash('Correct!')
             score += 10
         else:
-            message = "Wrong, try again!"
+            # message = "Wrong, try again!"
+            flash('Wrong, try again!')
             score += 0
             update_lives()
 
@@ -121,10 +123,10 @@ def play_medium():
         word_given = form["word"]
 
         if word_given == user_spelling:
-            message = "Correct"
+            flash("Correct")
             score += 10
         else:
-            message = "Wrong, try again!"
+            flash("Wrong, try again!")
             score += 0
             update_lives()
 
@@ -153,10 +155,10 @@ def play_hard():
         word_given = form["word"]
 
         if word_given == user_spelling:
-            message = "Correct"
+            flash("Correct")
             score += 10
         else:
-            message = "Wrong, try again!"
+            flash("Wrong, try again!")
             score += 0
             update_lives()
 
