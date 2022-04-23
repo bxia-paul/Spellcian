@@ -1,6 +1,6 @@
 from calendar import c
 from flask import Blueprint, flash, redirect, render_template, request, send_from_directory, url_for
-from flask_login import current_user
+from flask_login import current_user , login_required
 
 from App.models import db
 from App.controllers import(
@@ -21,40 +21,48 @@ def home():
     return render_template('login.html')
 
 @game_views.route('/home', methods=['GET'])
+@login_required
 def home_opts():
     return render_template("main-page.html")
 
 @game_views.route('/profile', methods=['GET'])
+@login_required
 def profile():
     return render_template('profile.html')
 
 
 @game_views.route('/lost_easy', methods=['GET'])
+@login_required
 def lost_easy():
     return render_template('lost_easy.html')
 
 
 @game_views.route('/win_easy', methods=['GET'])
+@login_required
 def win_easy():
     return render_template('win_easy.html')
 
 
 @game_views.route('/lost_medium', methods=['GET'])
+@login_required
 def lost_medium():
     return render_template('lost_medium.html')
 
 
 @game_views.route('/win_medium', methods=['GET'])
+@login_required
 def win_medium():
     return render_template('win_medium.html')
 
 
 @game_views.route('/lost_hard', methods=['GET'])
+@login_required
 def lost_hard():
     return render_template('lost_hard.html')
 
 
 @game_views.route('/win_hard', methods=['GET'])
+@login_required
 def win_hard():
     return render_template('win_hard.html')
 
@@ -62,6 +70,7 @@ def win_hard():
 
 
 @game_views.route('/easy', methods=['GET', 'POST'])
+@login_required
 def play_easy():
     global score
 
@@ -95,6 +104,7 @@ def play_easy():
 
 
 @game_views.route('/medium', methods=['GET', 'POST'])
+@login_required
 def play_medium():
     global score
     bee_word = getMedWordList()
@@ -126,6 +136,7 @@ def play_medium():
 
 
 @game_views.route('/hard', methods=['GET', 'POST'])
+@login_required
 def play_hard():
     global score
     bee_word = getHardWordList()

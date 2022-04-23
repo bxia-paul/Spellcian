@@ -52,11 +52,11 @@
                 <textarea hidden id="textToRead">{{word}}</textarea>
                 <p class="speak-text">Click to say word.</p>
                 <a href="#" onclick="textToVoice()" ><i class="material-icons volume-button">volume_up</i></a>
-                
+             
                 <form class="word-input" method="POST">
                     <div class="input-field col s12 center-align" >
                         <textarea hidden name="word">{{word}}</textarea>
-                        <textarea name="spelling" type="text" class="validate center-align"></textarea>
+                        <textarea autofocus name="spelling" type="text" class="validate center-align"></textarea>
                     </div>
                     <button class="btn waves-effect waves-light submit-button" type="submit" name="action">Submit
                         <i class="material-icons right">send</i>

@@ -50,7 +50,7 @@ def signupAction():
         return render_template('login.html')
     else:
         flash('User could not be created!')
-        return redirect(url_for('user_views.signup'))
+        return render_template('signup.html')
         
 
 @auth_views.route('/logout', methods=['GET'])
